@@ -2,7 +2,7 @@ from enum import Enum
 from typing import List, Tuple
 
 DeliveryMethod = Enum('DeliveryMethod', ['Blended', 'InPerson', 'Flex', 'Online', 'Professionally Mentored', 'Virtual Live'])
-Block = Enum('Block', ['Full', 'First', 'Second'])
+Block = Enum('Block', ['full', 'first', 'second'])
 
 class Section:
     def __init__(self, times: List[Tuple[str, float, float]], course_code: str, section_number: str, delivery_method: DeliveryMethod, block: Block, title: str, num_credits: int):
@@ -13,6 +13,14 @@ class Section:
         self.block = block
         self.title = title
         self.num_credits = num_credits
+
+    def getSchedulerFormat(self):
+        formatted_times = []
+        for time in self.times:
+            formatted_times.append((time[0],time[1],time[2],self.block.name))
+        if len(formatted_times)==0:
+            formatted_times.append(('Any',0,24,'full'))
+        return (self.section_number,formatted_times)
 
     def __str__(self):
         timesString = "Times("
