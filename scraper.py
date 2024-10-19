@@ -217,8 +217,10 @@ class ScraperSession:
             # Turn minutes into a decimal e.g. 30 minutes = 0.5 hours.
             start = float(start[:2]) + float(start[3:]) / 60
             end = float(end[:2]) + float(end[3:]) / 60
-            if is_pm:
+            if is_pm and start < 12:
                 start += 12
+                end += 12
+            if is_pm and start >= 12 and start < 13:
                 end += 12
             if starts_am:
                 start -= 12
