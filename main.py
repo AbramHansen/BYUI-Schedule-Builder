@@ -27,13 +27,13 @@ def test():
     psycologySections.append(Section([],'PSY 101', 'A15', DeliveryMethod.Online, Block.Full, "Intro to Psycology", 3))
     psycologySections.append(Section([
         ('M',9,10.5), ('W',9,10.5), ('F',9,10.5)
-    ],'PSY 101', 'A15', DeliveryMethod.InPerson, Block.Full, "Intro to Psycology", 3))
+    ],'PSY 101', 'A14', DeliveryMethod.InPerson, Block.Full, "Intro to Psycology", 3))
     psycologySections.append(Section([
         ('M',10.5,12), ('W',10.5,12), ('F',10.5,12)
     ],'PSY 101', 'A15', DeliveryMethod.InPerson, Block.Full, "Intro to Psycology", 3))
     psycologySections.append(Section([
         ('M',14.5,16), ('W',14.5,16), ('F',14.5,16)
-    ],'PSY 101', 'A15', DeliveryMethod.InPerson, Block.Full, "Intro to Psycology", 3))
+    ],'PSY 101', 'A17', DeliveryMethod.InPerson, Block.Full, "Intro to Psycology", 3))
 
     programmingWithClassesSections.append(Section([
         ('M',10.25,11.25), ('W',15,18), ('F',10.25,11.25)
