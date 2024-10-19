@@ -1,10 +1,11 @@
 from enum import Enum
+from typing import List, Tuple
 
 DeliveryMethod = Enum('DeliveryMethod', ['Blended', 'InPerson', 'Flex', 'Online', 'Professionally Mentored', 'Virtual Live'])
 Block = Enum('Block', ['Full', 'First', 'Second'])
 
 class Section:
-    def __init__(self, times: list, course_code: str, section_number: str, delivery_method: DeliveryMethod, block: Block, title: str, num_credits: int):
+    def __init__(self, times: List[Tuple[str, float, float]], course_code: str, section_number: str, delivery_method: DeliveryMethod, block: Block, title: str, num_credits: int):
         self.times = times
         self.course_code = course_code
         self.section_number = section_number
