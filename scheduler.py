@@ -49,9 +49,7 @@ def schedule(classes):
     status = solver.Solve(model)
 
     if status == cp_model.OPTIMAL or status == cp_model.FEASIBLE:
-        print("Schedule:")
-        for var in schedule_vars:
-            if solver.Value(schedule_vars[var]) == 1:
-                print(var)
+        result = [(var.split('_')[0], var.split('_')[1]) for var in schedule_vars if solver.Value(schedule_vars[var]) == 1]
+        return result
     else:
-        print('No solution found.')
+        return []
