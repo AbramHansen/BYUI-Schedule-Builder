@@ -31,7 +31,7 @@ def getSchedules():
     scraper = ScraperSession()
 
     for code in codes:
-        courses.append(scraper.get_sections_data(term=block, course_code=code))
+        courses.append(scraper.get_sections_data(term=block, course_code=code, delivery_method="P"))
 
     schedule_dict = {}
     mega_dict = {}
