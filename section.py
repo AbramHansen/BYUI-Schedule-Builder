@@ -17,7 +17,7 @@ class Section:
     def getSchedulerFormat(self):
         formatted_times = []
         for time in self.times:
-            formatted_times.append((time[0],time[1],time[2],self.block.name))
+            formatted_times.append((time[0],time[1],time[2],self.block.name.lower()))
         if len(formatted_times)==0:
             formatted_times.append(('Any',0,24,'full'))
         return (self.section_number,formatted_times)
@@ -47,3 +47,4 @@ class Section:
         timesString += str(self.num_credits)
         timesString += "\n\n\n\n"
 
+        return timesString
