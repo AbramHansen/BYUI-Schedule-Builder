@@ -77,7 +77,7 @@ def add_class(classes_dict, class_section_list):
 
 def scraper_schedule_test():
     scraper = ScraperSession()
-    # pwc = scraper.get_sections_data(term="2024;FA", course_code="cse 210")
+    pwc = scraper.get_sections_data(term="2024;FA", course_code="cse 210")
     pwf = scraper.get_sections_data(term="2024;FA", course_code="cse 111")
     pwd = scraper.get_sections_data(term="2024;FA", course_code="cse 212")
 
@@ -86,7 +86,7 @@ def scraper_schedule_test():
     print(pwd)
 
     classes = {}
-    # add_class(classes, pwc)
+    add_class(classes, pwc)
     add_class(classes, pwf)
     add_class(classes, pwd)
     schedule(classes)
