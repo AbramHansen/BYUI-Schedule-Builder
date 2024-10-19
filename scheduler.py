@@ -26,9 +26,6 @@ def schedule(classes):
                             if day_a == day_b:
                                 # Check for overlap
                                 if start_a < end_b and start_b < end_a:  # Overlap condition
-                                    # Debug information
-                                    print(f"Conflict between {course_a} {section_a} and {course_b} {section_b} on {day_a} from {start_a} to {end_a} and {start_b} to {end_b}")
-
                                     # Add constraints based on block type
                                     if block_type_a == 'full' and block_type_b == 'full':
                                         model.Add(schedule_vars[f"{course_a}_{section_a}"] + schedule_vars[f"{course_b}_{section_b}"] <= 1)
@@ -36,12 +33,18 @@ def schedule(classes):
                                         model.Add(schedule_vars[f"{course_a}_{section_a}"] + schedule_vars[f"{course_b}_{section_b}"] <= 1)
                                     elif block_type_a == 'second' and block_type_b == 'second':
                                         model.Add(schedule_vars[f"{course_a}_{section_a}"] + schedule_vars[f"{course_b}_{section_b}"] <= 1)
-                                    # Allow first and second blocks to overlap
-                                    # No additional constraints needed here
 
     # At least one section of each course should be taken
     for course, sections in classes.items():
         model.Add(sum(schedule_vars[f"{course}_{section_name}"] for section_name in sections) >= 1)
+
+    # Objective: Maximize in-person classes, minimize online classes
+    objective_terms = []
+    for var in schedule_vars:
+        if 'Any' in var:  # This means it's an online class
+            objective_terms.append(-1 * schedule_vars[var])  # Penalize online classes
+
+    model.Maximize(sum(objective_terms))
 
     # Solve the model
     solver = cp_model.CpSolver()
