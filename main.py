@@ -1,5 +1,6 @@
 from section import Section, DeliveryMethod, Block
 from scheduler import schedule
+from scraper import ScraperSession
 
 def test():
     cppSections = []
@@ -73,8 +74,25 @@ def add_class(classes_dict, class_section_list):
         sections[time_stuff[0]]=time_stuff[1]
     classes_dict[class_name] = sections
 
+
+def scraper_schedule_test():
+    scraper = ScraperSession()
+    # pwc = scraper.get_sections_data(term="2024;FA", course_code="cse 210")
+    pwf = scraper.get_sections_data(term="2024;FA", course_code="cse 111")
+    pwd = scraper.get_sections_data(term="2024;FA", course_code="cse 212")
+
+    # print(pwc)
+    print(pwf)
+    print(pwd)
+
+    classes = {}
+    # add_class(classes, pwc)
+    add_class(classes, pwf)
+    add_class(classes, pwd)
+    schedule(classes)
+
 def main():
-    test()
+    scraper_schedule_test()
 
 if __name__=="__main__":
     main()

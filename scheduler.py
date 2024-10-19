@@ -55,27 +55,3 @@ def schedule(classes):
                 print(var)
     else:
         print('No solution found.')
-
-# New class data
-classes = {
-    'CSE 220C': {
-        'A1': [('Any', 0, 24, 'full')], 
-        'A2': [('W', 13.25, 14.25, 'first')], 
-        'A3': [('W', 13.25, 14.25, 'second')], 
-        'A4': [('Any', 0, 24, 'full')]
-    },
-    'CSE 336': {
-        'B3': [('M', 14.5, 16, 'first'), ('W', 14.5, 16, 'first')], 
-        'B5': [('T', 14.5, 16, 'second'), ('R', 14.5, 16, 'second')], 
-        'B7': [('T', 9, 10, 'first'), ('R', 9, 10, 'first')], 
-        'B9': [('T', 10.25, 11.25, 'second'), ('R', 10.25, 11.25, 'second')]
-    },
-    'PSY 101': {
-        'A17': [('M', 14.5, 16, 'full'), ('W', 14.5, 15, 'full'), ('F', 14.5, 16, 'full')]
-    },
-    'CSE 210': {
-        'C4': [('M', 10.25, 11.25, 'full'), ('W', 15, 18, 'full'), ('F', 10.25, 11.25, 'full')]
-    }
-}
-
-schedule(classes)
