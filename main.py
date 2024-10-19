@@ -2,9 +2,8 @@ from section import Section, DeliveryMethod, Block
 from scheduler import schedule
 from scraper import ScraperSession
 from server import startServer
-import json
 
-def test():
+"""def test():
     cppSections = {}
     dataStructuresSections = {}
     psycologySections = {}
@@ -66,33 +65,9 @@ def test():
         print(f"{key}: {value}")
         print("")
 
-    schedule(classes)
+    schedule(classes)"""
 
-def add_class(classes_dict, class_section_list):
-    class_name = class_section_list[0].course_code
-    sections = {}
-    for course in class_section_list:
-        time_stuff = course.getSchedulerFormat()
-        sections[time_stuff[0]]=time_stuff[1]
-    classes_dict[class_name] = sections
-
-
-def schedule_to_json(new_schedule, classes_dict):
-    course_list = []
-    for code,section in new_schedule:
-        course_list.append((classes_dict[code][section]).getSelfAsDict())
-    return json.dumps(course_list)
-
-
-def courseToDict(class_dict, section_list):
-    section_dict = {}
-    course_code = section_list[0].course_code
-    for item in section_list:
-        section_dict[item.section_number] = item
-    class_dict[course_code] = section_dict
-    return class_dict
-
-def scraper_schedule_test():
+"""def scraper_schedule_test():
     scraper = ScraperSession()
     all_classes = {}
     pwc = scraper.get_sections_data(term="2024;FA", course_code="cse 210")
@@ -126,7 +101,7 @@ def scraper_schedule_test():
     # print(new_schedule)
 
     json_schedule = schedule_to_json(new_schedule, all_classes)
-    print(json_schedule)
+    print(json_schedule)"""
 
 def main():
     #scraper_schedule_test()

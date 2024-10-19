@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BYUI Schedule Builder</title>
+</head>
+<body>
+    <h1>BYUI Schedule Builder</h1>
+    
+    <!-- Form to submit course codes and block -->
+    <form id="courseForm" action="/submitcodes" method="POST">
+        <label for="course_code">Enter a course code: </label>
+        <input type="text" placeholder="i.e. cse 210" id="course_code" name="course_code" required>
+        <button id="addCourse" type="button">+</button>
+        <br><br>
+        <ul id="codeList"></ul>
+
+        <label for="block">Block: </label>
+        <select name="block" id="block"></select>
+        <br><br>
+
+        <button type="submit">Get Schedules</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script src="index.js"></script>
+</body>
+</html>

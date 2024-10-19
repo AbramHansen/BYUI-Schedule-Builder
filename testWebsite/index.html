@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BYUI Schedule</title>
+</head>
+<body>
+    <h1>Submit Course Codes</h1>
+    
+    <!-- Form to submit course codes and block -->
+    <form id="courseForm" action="/submitcodes" method="POST">
+        <label for="course_codes">Course Codes (comma-separated): </label>
+        <input type="text" id="course_codes" name="course_codes" required>
+        <br><br>
+
+        <label for="block">Block: </label>
+        <input type="text" id="block" name="block" required>
+        <br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        // Optional: Add JavaScript if you want to handle the response dynamically without reloading the page
+        document.getElementById('courseForm').addEventListener('submit', function (event) {
+            event.preventDefault();  // Prevent the default form submission
+
+            const formData = new FormData(this);
+
+            fetch('http://3.88.240.136:5000/submitcodes', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();  // Or handle JSON if needed
+                } else {
+                    throw new Error('Network response was not ok.');
+                }
+            })
+            .then(data => {
+                // Display the returned JSON data
+                document.getElementById('result').innerHTML = `
+                    <h2>Submission Result:</h2>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;            })
+            .catch(error => {
+                document.getElementById('result').innerText = 'Error: ' + error.message;
+            });
+        });
+    </script>
+</body>
+</html>
+
