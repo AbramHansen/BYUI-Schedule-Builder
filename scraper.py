@@ -238,6 +238,26 @@ class ScraperSession:
 
         return times, block
 
+    def get_available_terms(self) -> list[str]:
+        """
+        Get the available terms.
+
+        :return: The available terms.
+        """
+
+        response = requests.get(self._url, timeout=10)
+        page = response.text
+
+        soup = BeautifulSoup(page, "html.parser")
+
+        # Find the dropdown for the terms.
+        dropdown = soup.find("select", attrs={"id": "pg0_V_tabSearch_ddlTermSearch"})
+
+        terms = []
+        for option in dropdown.find_all("option"):
+            terms.append((option["value"], option.text))
+
+        return terms
 
     def parse_sections_data(self, page: str) -> Section:
         """
@@ -289,9 +309,10 @@ if __name__ == "__main__":
     # print(scraper.get_sections_data(term="2024;FA", discipline="CSE"))
     # print(scraper.get_sections_data(term="2024;FA", discipline="CSE", course_code="110"))
     # print(scraper.get_sections_data(term="2024;FA", title="Introduction"))
-    print("Finding CSE 210")
-    print(scraper.get_sections_data(term="2024;FA", course_code="210"))
-    print("Finding CSE 111")
+    # print("Finding CSE 210")
+    # print(scraper.get_sections_data(term="2024;FA", course_code="210"))
+    # print("Finding CSE 111")
     # print("browser_refresh", scraper._browser_refresh, "\nviewstate", scraper._viewstate, "\nviewstate_generator", scraper._viewstate_generator)
-    print(scraper.get_sections_data(term="2024;FA", course_code="111"))
+    # print(scraper.get_sections_data(term="2024;FA", course_code="111"))
+    print(scraper.get_available_terms())
     
