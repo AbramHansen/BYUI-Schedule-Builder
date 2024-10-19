@@ -1,7 +1,7 @@
 from section import Section, DeliveryMethod, Block
 from scheduler import schedule
 from scraper import ScraperSession
-from server import Server
+from server import startServer
 
 def test():
     cppSections = []
@@ -93,9 +93,8 @@ def scraper_schedule_test():
     schedule(classes)
 
 def main():
-    scraper_schedule_test()
-    server = Server()
-    server.start()
+    #scraper_schedule_test()
+    startServer()
 
 if __name__=="__main__":
     main()

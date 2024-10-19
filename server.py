@@ -1,33 +1,37 @@
 from flask import Flask, request
+from scraper import ScraperSession
 
-class Server:
-    __codes = []
+app = Flask(__name__)
 
-    __app = Flask(__name__)
+@app.route('/')
+def index():
+    return("Hello Index!")
 
-    @__app.route('/')
-    def index(self):
-        return("Hello Index!")
+@app.route('/submitcodes', methods=['POST'])
+def getSchedules():
+    course_codes = request.form['course_codes']
+    block = request.form['block']
 
-    @__app.route('/submitcodes', methods=['POST'])
-    def getSchedules(self):
-        course_codes = request.form['course_codes']
-        block = request.form['block']
+    courses = {}
+    codes = []
+    if course_codes != "":
+        code = ""
+        for character in course_codes:
+            if character != ',':
+                code += character
+            else:
+                codes.append(code)
+                code = ""
+        codes.append(code)
 
-        self.__codes = []
-        if course_codes != "":
-            code = ""
-            for character in course_codes:
-                if character != ',':
-                    code += character
-                else:
-                    self.__codes.append(code)
-                    code = ""
-            self.__codes.append(code)
+    scraper = ScraperSession()
 
-        print(self.__codes)
+    for code in codes:
+        courses[code] = scraper.get_sections_data(term=block, course_code=code)
 
-        return "Process Success", 200
+    print(courses)
 
-    def start(self):
-        self.__app.run()
+    return "Process Success", 200
+
+def startServer():
+    app.run()
