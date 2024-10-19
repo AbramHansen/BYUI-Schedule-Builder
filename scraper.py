@@ -28,12 +28,15 @@ class ScraperSession:
         self._viewstate_generator: str | None = None
         self._browser_refresh: str | None = None
 
-    def init_connection(self):
-        res = self._session.get(self._url)
-        self._init = True
+    def _grab_hidden_data(self, html: str) -> dict[str, str]:
+        """
+        Grab the hidden data from the given html.
 
-        # Access important session info used by ASP.NET
-        soup = BeautifulSoup(res.text, "html.parser")
+        :param html: The html to grab the hidden data from.
+        :return: The hidden data.
+        """
+
+        soup = BeautifulSoup(html, "html.parser")
 
         hidden_inputs = soup.find_all("input", attrs={"type": "hidden"})
 
@@ -41,9 +44,41 @@ class ScraperSession:
         for hidden_input in hidden_inputs:
             hidden_data[hidden_input["name"]] = hidden_input["value"]
 
+        return hidden_data
+
+    def _update_hidden_data(self, html: str):
+        """
+        Update the hidden data from the given html.
+
+        :param html: The html to update the hidden data from.
+        """
+
+        hidden_data = self._grab_hidden_data(html)
+
         self._viewstate = hidden_data["__VIEWSTATE"]
         self._viewstate_generator = hidden_data["__VIEWSTATEGENERATOR"]
         self._browser_refresh = hidden_data["___BrowserRefresh"]
+
+    def init_connection(self):
+        res = self._session.get(self._url)
+        self._init = True
+
+        # Access important session info used by ASP.NET
+        # soup = BeautifulSoup(res.text, "html.parser")
+
+        # hidden_inputs = soup.find_all("input", attrs={"type": "hidden"})
+
+        # hidden_data = {}
+        # for hidden_input in hidden_inputs:
+        #     hidden_data[hidden_input["name"]] = hidden_input["value"]
+
+        self._update_hidden_data(res.text)
+
+        # hidden_data = self._grab_hidden_data(res.text)
+
+        # self._viewstate = hidden_data["__VIEWSTATE"]
+        # self._viewstate_generator = hidden_data["__VIEWSTATEGENERATOR"]
+        # self._browser_refresh = hidden_data["___BrowserRefresh"]
         
     def get_page(
             self,
@@ -103,6 +138,9 @@ class ScraperSession:
         res = self._session.post(self._url, data=data)
         if res.status_code != 200:
             raise ValueError(f"Failed to get page. Status code: {res.status_code}")
+
+        self._update_hidden_data(res.text)
+
         return res.text
 
     def get_sections_data(
@@ -246,5 +284,10 @@ if __name__ == "__main__":
     # A bunch of tests
     # print(scraper.get_sections_data(term="2024;FA", discipline="CSE"))
     # print(scraper.get_sections_data(term="2024;FA", discipline="CSE", course_code="110"))
-    print(scraper.get_sections_data(term="2024;FA", title="Introduction"))
+    # print(scraper.get_sections_data(term="2024;FA", title="Introduction"))
+    print("Finding CSE 210")
+    print(scraper.get_sections_data(term="2024;FA", course_code="210"))
+    print("Finding CSE 111")
+    # print("browser_refresh", scraper._browser_refresh, "\nviewstate", scraper._viewstate, "\nviewstate_generator", scraper._viewstate_generator)
+    print(scraper.get_sections_data(term="2024;FA", course_code="111"))
     
