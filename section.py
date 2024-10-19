@@ -21,6 +21,26 @@ class Section:
         if len(formatted_times)==0:
             formatted_times.append(('Any',0,24,'full'))
         return (self.section_number,formatted_times)
+    
+    def getSelfAsDict(self):
+        selfDict = {}
+        selfDict["title"] = self.title
+        selfDict["course_code"] = self.course_code
+        selfDict["section_number"] = self.section_number
+        
+        selfDict["times"] = []
+        for time in self.times:
+            obj = {
+                "day": time[0],
+                "start": time[1],
+                "end": time[2]
+            }
+            selfDict["times"].append(obj)
+
+        selfDict["block"] = self.block.name
+        selfDict["num_credits"] = self.num_credits
+        selfDict["delivery_method"] = self.delivery_method.name
+        return selfDict
 
     def __repr__(self) -> str:
         return self.__str__()
