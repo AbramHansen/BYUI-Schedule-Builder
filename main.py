@@ -7,7 +7,7 @@ def test():
     programmingWithClassesSections = []
 
     cppSections.append(Section([],'CSE 220C', 'A1', DeliveryMethod.Online, Block.Second, "C++ Language", 1))
-    cppSections.append(Section([('W',13.25,14.25)],'CSE 220C', 'A2', DeliveryMethod.InPerson, Block.Second, "C++ Language", 1))
+    cppSections.append(Section([('W',13.25,14.25)],'CSE 220C', 'A2', DeliveryMethod.InPerson, Block.First, "C++ Language", 1))
     cppSections.append(Section([('W',13.25,14.25)],'CSE 220C', 'A3', DeliveryMethod.InPerson, Block.Second, "C++ Language", 1))
     cppSections.append(Section([],'CSE 220C', 'A4', DeliveryMethod.Online, Block.Second, "C++ Language", 1))
 
@@ -16,13 +16,13 @@ def test():
     ],'CSE 336', 'B3', DeliveryMethod.InPerson, Block.First, "Data Structures", 3))
     dataStructuresSections.append(Section([
         ('T',14.5,16), ('R',14.5,16)
-    ],'CSE 336', 'B5', DeliveryMethod.InPerson, Block.First, "Data Structures", 3))
+    ],'CSE 336', 'B5', DeliveryMethod.InPerson, Block.Second, "Data Structures", 3))
     dataStructuresSections.append(Section([
         ('T',9,10), ('R',9,10)
     ],'CSE 336', 'B7', DeliveryMethod.InPerson, Block.First, "Data Structures", 3))
     dataStructuresSections.append(Section([
         ('T',10.25,11.25), ('R',10.25,11.25)
-    ],'CSE 336', 'B9', DeliveryMethod.InPerson, Block.First, "Data Structures", 3))
+    ],'CSE 336', 'B9', DeliveryMethod.InPerson, Block.Second, "Data Structures", 3))
 
     psycologySections.append(Section([],'PSY 101', 'A15', DeliveryMethod.Online, Block.Full, "Intro to Psycology", 3))
     psycologySections.append(Section([
@@ -46,8 +46,10 @@ def test():
     testSections['Programming with Classes'] = programmingWithClassesSections
     
     for course in testSections:
+        print("\t\t\t\t" + course + "\n")
         for section in testSections[course]: 
             print(section)
+        print("\n\n\n\n")
 
 def main():
     test()
