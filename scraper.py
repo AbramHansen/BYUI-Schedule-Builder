@@ -2,6 +2,13 @@ import requests
 from bs4 import BeautifulSoup
 from section import Section, Block, DeliveryMethod
 
+# Actual deliver values:
+# Blended: "B"
+# In-Person: "P"
+# In-Person OR Virtual Live (Flex): "X"
+# Online: "O"
+# Professionally Mentored: "M"
+# Virtual Live: "V"
 _delivery_conversion = {
     "Blended": DeliveryMethod.Blended,
     "In-Person": DeliveryMethod.InPerson,
@@ -316,5 +323,6 @@ if __name__ == "__main__":
     # print("Finding CSE 111")
     # print("browser_refresh", scraper._browser_refresh, "\nviewstate", scraper._viewstate, "\nviewstate_generator", scraper._viewstate_generator)
     # print(scraper.get_sections_data(term="2024;FA", course_code="111"))
-    print(scraper.get_available_terms())
+    # print(scraper.get_available_terms())
+    print(scraper.get_sections_data(term="2024;FA", course_code="cse 212", delivery_method="In-Person"))
     
