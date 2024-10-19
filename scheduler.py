@@ -1,8 +1,6 @@
 from ortools.sat.python import cp_model
 
 def main():
-    model = cp_model.CpModel()
-
     # Define classes with multiple days for each section, including non-integer times
     classes = {
         'Math 101': {
@@ -28,7 +26,10 @@ def main():
             'Section A': [('Tuesday', 15.0, 16.0), ('Thursday', 15.0, 16.0)]
         }
     }
+    schedule(classes)
 
+def schedule(classes):
+    model = cp_model.CpModel()
     # Create decision variables
     schedule_vars = {}
     for course, sections in classes.items():
