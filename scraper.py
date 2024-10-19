@@ -141,6 +141,10 @@ class ScraperSession:
 
         self._update_hidden_data(res.text)
 
+        # HACK!!!!
+        # Resets session state because hackathon and for some reason the server keeps returning the same thing.
+        self.init_connection()
+
         return res.text
 
     def get_sections_data(
